@@ -1,6 +1,8 @@
 # ForecastComb
 >Forecast Combination in R
 
+**Note to self:** `git remote set-url origin https://<your-token>@github.com/thierrymoudiki/ForecastComb.git`
+
 [![Build Status](https://img.shields.io/travis/ceweiss/ForecastComb/master.svg)](https://travis-ci.org/ceweiss/ForecastComb)
 [![Build_Note](http://www.r-pkg.org/badges/version/ForecastComb)](https://cran.r-project.org/package=ForecastComb)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/ForecastCombinations)](https://cran.r-project.org/package=ForecastComb)
