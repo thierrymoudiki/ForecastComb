@@ -70,15 +70,19 @@ comb_OLS <- function(x) {
     if (class(x) != "foreccomb")
         stop("Data must be class 'foreccomb'. See ?foreccomb, to bring data in correct format.", call. = FALSE)
     observed_vector <- x$Actual_Train
-    prediction_matrix <- x$Forecasts_Train
+    prediction_matrix <- cbind(1, x$Forecasts_Train)
     modelnames <- x$modelnames
 
-    lin_model <- lm(observed_vector ~ prediction_matrix)
+    lin_model <- stats::.lm.fit(x = prediction_matrix, y = observed_vector)
+    misc::debug_print(lin_model)
+    weights <- unname(lin_model$coefficients[-1])
+    misc::debug_print(weights)
+    intercept <- unname(lin_model$coefficients[1])
+    misc::debug_print(intercept)
+    fitted <- drop(prediction_matrix%*%lin_model$coefficients)
+    misc::debug_print(fitted)
 
-    weights <- unname(lin_model$coef[-1])
-    intercept <- unname(lin_model$coef[1])
-    fitted <- unname(fitted(lin_model))
-    accuracy_insample <- accuracy(fitted, observed_vector)
+    accuracy_insample <- forecast::accuracy(fitted, observed_vector)
 
     if (is.null(x$Forecasts_Test) & is.null(x$Actual_Test)) {
         result <- foreccomb_res(method = "Ordinary Least Squares Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,

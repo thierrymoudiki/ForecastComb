@@ -42,15 +42,17 @@
 #'
 #' data<-foreccomb(train_o, train_p, test_o, test_p)
 #'
+#' \dontrun{
 #' # Evaluating all the forecast combination methods and returning the best.
 #' # If necessary, it uses the built-in automated parameter optimisation methods
 #' # for the different methods.
-#' best_combination<-auto_combine(data, criterion = "MAPE")
+#' #best_combination<-auto_combine(data, criterion = "MAPE")
 #'
 #' # Same as above, but now we restrict the parameter ntop_pred for the method comb_EIG3 to be 3.
-#' param_list<-list()
-#' param_list$comb_EIG3$ntop_pred<-3
-#' best_combination_restricted<-auto_combine(data, criterion = "MAPE", param_list = param_list)
+#' #param_list<-list()
+#' #param_list$comb_EIG3$ntop_pred<-3
+#' #best_combination_restricted<-auto_combine(data, criterion = "MAPE", param_list = param_list)
+#' }
 #'
 #' @seealso
 #' \code{\link{foreccomb}},
