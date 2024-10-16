@@ -61,9 +61,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_EIG3(data, ntop_pred = NULL, criterion = "RMSE")
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \references{
 Hsiao, C., and Wan, S. K. (2014). Is There An Optimal Forecast Combination? \emph{Journal of Econometrics}, \bold{178(2)}, 294--309.
 }
@@ -74,5 +71,7 @@ Hsiao, C., and Wan, S. K. (2014). Is There An Optimal Forecast Combination? \emp
 \code{\link{summary.foreccomb_res}},
 \code{\link[forecast]{accuracy}}
 }
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}
 \keyword{models}
-

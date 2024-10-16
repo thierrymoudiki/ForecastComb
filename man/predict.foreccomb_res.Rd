@@ -4,8 +4,7 @@
 \alias{predict.foreccomb_res}
 \title{Prediction function for Forecast Combinations}
 \usage{
-\method{predict}{foreccomb_res}(object, newpreds, newobs = NULL,
-  simplify = TRUE, byrow = FALSE, ...)
+\method{predict}{foreccomb_res}(object, newpreds, newobs = NULL, simplify = TRUE, byrow = FALSE, ...)
 }
 \arguments{
 \item{object}{An object of class 'foreccomb'. Contains training set (actual values + matrix of model forecasts) and optionally a test set.}
@@ -43,10 +42,9 @@ fit<-comb_BG(data)
 predict(fit, test_p)
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \seealso{
 \code{\link[ForecastComb]{foreccomb}},
 }
-
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}

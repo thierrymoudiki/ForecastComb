@@ -34,11 +34,10 @@ fit <- comb_EIG1(data)
 plot(fit)
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \seealso{
 \code{\link[ForecastComb]{foreccomb}},
 \code{\link[ForecastComb]{summary.foreccomb_res}}
 }
-
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}

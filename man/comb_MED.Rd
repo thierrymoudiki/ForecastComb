@@ -46,9 +46,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_MED(data)
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \references{
 Armstrong, J. S. (1989). Combining Forecasts: The End of the Beginning or the Beginning of the End?. \emph{International Journal of Forecasting},
 \bold{5(4)}, 585--588.
@@ -70,5 +67,7 @@ Timmermann, A. (2006). Forecast Combinations. In: Elliott, G., Granger, C. W. J.
 \code{\link{comb_SA}},
 \code{\link[forecast]{accuracy}}
 }
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}
 \keyword{models}
-

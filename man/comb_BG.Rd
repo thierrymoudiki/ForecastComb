@@ -49,9 +49,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_BG(data)
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \references{
 Bates, J. M., and Granger, C. W. (1969). The Combination of Forecasts. \emph{Journal of the Operational Research Society}, \bold{20(4)}, 451--468.
 
@@ -64,5 +61,7 @@ Timmermann, A. (2006). Forecast Combinations. In: Elliott, G., Granger, C. W. J.
 \code{\link{summary.foreccomb_res}},
 \code{\link[forecast]{accuracy}}
 }
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}
 \keyword{models}
-

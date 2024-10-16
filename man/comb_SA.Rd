@@ -49,9 +49,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_SA(data)
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \references{
 Palm, F. C., and Zellner, A. (1992). To Combine or not to Combine? Issues of Combining Forecasts. \emph{Journal of Forecasting}, \bold{11(8)}, 687--701.
 
@@ -67,5 +64,7 @@ Timmermann, A. (2006). Forecast Combinations. In: Elliott, G., Granger, C. W. J.
 \code{\link{summary.foreccomb_res}},
 \code{\link{accuracy}}
 }
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}
 \keyword{models}
-

@@ -46,9 +46,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_InvW(data)
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \references{
 Aiolfi, M., amd Timmermann, A. (2006). Persistence in Forecasting Performance and Conditional Combination Strategies. \emph{Journal of Econometrics}, \bold{135(1)}, 31--53.
 
@@ -61,5 +58,7 @@ Bates, J. M., and Granger, C. W. (1969). The Combination of Forecasts. \emph{Jou
 \code{\link{comb_BG}},
 \code{\link[forecast]{accuracy}}
 }
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}
 \keyword{models}
-

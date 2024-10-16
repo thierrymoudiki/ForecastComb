@@ -64,9 +64,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_TA(data, criterion="RMSE")
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \references{
 Jose, V. R. R., and Winkler, R. L. (2008). Simple Robust Averages of Forecasts: Some Empirical Results. \emph{International Journal of Forecasting}, \bold{24(1)}, 163--169.
 }
@@ -79,5 +76,7 @@ Jose, V. R. R., and Winkler, R. L. (2008). Simple Robust Averages of Forecasts: 
 \code{\link{comb_TA}},
 \code{\link[forecast]{accuracy}}
 }
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}
 \keyword{models}
-

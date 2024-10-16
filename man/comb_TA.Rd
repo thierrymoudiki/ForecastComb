@@ -64,9 +64,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_TA(data, criterion="RMSE")
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \references{
 Armstrong, J. S. (2001). Combining Forecasts. In: \emph{Armstrong, J. S. (Ed.), Principles of Forecasting. Springer, Boston, MA}, 417--439.
 
@@ -83,5 +80,7 @@ Stock, J. H., and Watson, M. W. (2004). Combination Forecasts of Output Growth i
 \code{\link{comb_MED}},
 \code{\link[forecast]{accuracy}}
 }
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}
 \keyword{models}
-

@@ -46,9 +46,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_CSR(data)
 
 }
-\author{
-Eran Raviv  and Gernot R. Roetzer
-}
 \references{
 Hansen, B. (2008). Least-squares forecast averaging \emph{Journal of Econometrics}, \bold{146(2)}, 342--350.
 
@@ -67,5 +64,7 @@ Graham, E., Garganob, A., Timmermann, A. (2013). Complete subset regressions.
 \code{\link{comb_NG}},
 \code{\link[forecast]{accuracy}}
 }
+\author{
+Eran Raviv  and Gernot R. Roetzer
+}
 \keyword{models}
-

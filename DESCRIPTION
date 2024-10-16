@@ -26,4 +26,4 @@ URL: https://github.com/ceweiss/ForecastComb
 BugReports: https://github.com/ceweiss/ForecastComb/issues
 License: GPL (>= 2)
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 7.2.3

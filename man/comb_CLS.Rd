@@ -73,4 +73,3 @@ Schemes for Combining Electricity Spot Price Forecasts. \emph{Energy Economics},
 \code{\link[forecast]{accuracy}}
 }
 \keyword{models}
-

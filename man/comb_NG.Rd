@@ -55,9 +55,6 @@ data<-foreccomb(train_o, train_p, test_o, test_p)
 comb_NG(data)
 
 }
-\author{
-Christoph E. Weiss and Gernot R. Roetzer
-}
 \references{
 Bates, J. M., and Granger, C. W. (1969). The Combination of Forecasts. \emph{Journal of the Operational Research Society}, \bold{20(4)}, 451--468.
 
@@ -74,5 +71,7 @@ Newbold, P., and Granger, C. W. J. (1974). Experience with Forecasting Univariat
 \code{\link{summary.foreccomb_res}},
 \code{\link[forecast]{accuracy}}
 }
+\author{
+Christoph E. Weiss and Gernot R. Roetzer
+}
 \keyword{models}
-

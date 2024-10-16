@@ -4,10 +4,21 @@
 \alias{foreccomb_res}
 \title{Result Rbject for the Forecast Combination Methods}
 \usage{
-foreccomb_res(method, modelnames, fitted, accuracy_insample, input_data,
-  predict = NULL, intercept = NULL, weights = NULL, pred = NULL,
-  accuracy_outsample = NULL, trim_factor = NULL, top_predictors = NULL,
-  ranking = NULL)
+foreccomb_res(
+  method,
+  modelnames,
+  fitted,
+  accuracy_insample,
+  input_data,
+  predict = NULL,
+  intercept = NULL,
+  weights = NULL,
+  pred = NULL,
+  accuracy_outsample = NULL,
+  trim_factor = NULL,
+  top_predictors = NULL,
+  ranking = NULL
+)
 }
 \arguments{
 \item{method}{Name of the method.}
@@ -45,4 +56,3 @@ Stores the results and inputs for some combined forecasts.
 \author{
 Christoph E. Weiss, Gernot R. Roetzer
 }
-

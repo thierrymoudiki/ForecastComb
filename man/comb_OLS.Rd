@@ -4,7 +4,7 @@
 \alias{comb_OLS}
 \title{Ordinary Least Squares Forecast Combination}
 \usage{
-comb_OLS(x)
+comb_OLS(x, custom_error = NULL)
 }
 \arguments{
 \item{x}{An object of class 'foreccomb'. Contains training set (actual values + matrix of model forecasts) and optionally a test set.}
@@ -72,4 +72,3 @@ Schemes for Combining Electricity Spot Price Forecasts. \emph{Energy Economics},
 \code{\link[forecast]{accuracy}}
 }
 \keyword{models}
-

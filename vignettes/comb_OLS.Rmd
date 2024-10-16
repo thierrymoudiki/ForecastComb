@@ -1,0 +1,137 @@
+---
+title: "comb OLS"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{comb OLS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1 - Comb OLS  
+
+```{r}
+library(ForecastComb)
+```
+
+```{r}
+data(electricity)
+
+print(head(electricity))
+
+(forecasting_methods <- colnames(electricity)[1:5])
+
+train_obs <- electricity[1:84, "Actual"]
+train_pred <- electricity[1:84, forecasting_methods]
+test_obs <- electricity[85:123, "Actual"]
+test_pred <- electricity[85:123, forecasting_methods]
+
+data <- ForecastComb::foreccomb(train_obs, train_pred, test_obs, test_pred)
+
+start <- proc.time()[3]
+obj <- ForecastComb::comb_OLS(data)
+print(proc.time()[3] - start)
+
+print(summary(obj))
+
+print(obj$Accuracy_Test)
+
+print(obj$Weights)
+
+print(predict(obj, test_pred))
+```
+
+```{r fig.width=7.5}
+plot(obj)
+```
+# 2 - Comb Ridge
+
+```{r eval=TRUE}
+start <- proc.time()[3]
+obj <- ForecastComb::comb_Ridge(data)
+print(proc.time()[3] - start)
+```
+
+```{r eval=TRUE}
+print(summary(obj))
+
+print(obj$Accuracy_Test)
+
+print(predict(obj, test_pred))
+```
+
+```{r fig.width=7.5}
+plot(obj)
+```
+
+
+# 3 - Comb GLMnet 
+
+# 4 - Other examples
+
+```{r}
+h <- 20L
+```
+
+```{r, fig.width=7.5}
+par(mfrow=c(1, 2))
+plot(ahead::dynrmf(AirPassengers, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+plot(ahead::dynrmf(USAccDeaths, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+```
+
+```{r, fig.width=7.5}
+par(mfrow=c(1, 2))
+plot(ahead::dynrmf(UKDriverDeaths, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+plot(ahead::dynrmf(Nile, h=10L, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+```
+
+```{r, fig.width=7.5}
+par(mfrow=c(1, 2))
+plot(ahead::dynrmf(fdeaths, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+plot(ahead::dynrmf(lynx, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+```
+
+```{r, fig.width=7.5}
+par(mfrow=c(1, 2))
+plot(ahead::dynrmf(austres, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+plot(ahead::dynrmf(sunspots, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+```
+
+
+```{r, fig.width=7.5}
+par(mfrow=c(1, 2))
+plot(ahead::dynrmf(AirPassengers, h=h))
+plot(ahead::dynrmf(USAccDeaths, h=h))
+```
+
+```{r, fig.width=7.5}
+par(mfrow=c(1, 2))
+plot(ahead::dynrmf(UKDriverDeaths, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+plot(ahead::dynrmf(Nile, h=10L, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+```
+
+```{r, fig.width=7.5}
+par(mfrow=c(1, 2))
+plot(ahead::dynrmf(fdeaths, h=h))
+plot(ahead::dynrmf(lynx, h=h))
+```
+
+```{r, fig.width=7.5}
+par(mfrow=c(1, 2))
+plot(ahead::dynrmf(austres, h=h))
+plot(ahead::dynrmf(sunspots, h=h))
+```
+

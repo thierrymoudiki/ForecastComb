@@ -55,9 +55,6 @@ static_OLS <- comb_OLS(data)
 dyn_OLS <- rolling_combine(data, "comb_OLS")
 
 }
-\author{
-Christoph E. Weiss
-}
 \references{
 Bergmeir, C., Hyndman, R.J., and Koo, B. (2015). A Note on the Validity of Cross-Validation
 for Evaluating Time Series Prediction. \emph{Monash University, Deparment of Econometrics and
@@ -70,5 +67,7 @@ Timmermann, A. (2006). Forecast Combinations. \emph{Handbook of Economic Forecas
 \code{\link{plot.foreccomb_res}},
 \code{\link{summary.foreccomb_res}},
 }
+\author{
+Christoph E. Weiss
+}
 \keyword{models}
-

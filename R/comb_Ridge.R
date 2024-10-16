@@ -1,26 +1,10 @@
-#' @title Ordinary Least Squares Forecast Combination
+#' @title Ridge Regression Forecast Combination
 #'
-#' @description Computes forecast combination weights using ordinary least squares (OLS) regression.
+#' @description Computes forecast combination weights using Ridge Regression (OLS) regression.
 #'
 #' @details
-#' The function integrates the ordinary least squares (OLS) forecast combination implementation of the
+#' The function integrates the Ridge Regression forecast combination implementation of the
 #' \emph{ForecastCombinations} package into ForecastComb.
-#'
-#' The OLS combination method (Granger and Ramanathan (1984)) uses ordinary least squares to
-#' estimate the weights, \eqn{\mathbf{w}^{OLS} = (w_1, \ldots, w_N)'}, as well as an intercept, \eqn{b}, for the combination of
-#' the forecasts.
-#'
-#' Suppose that there are \eqn{N} not perfectly collinear predictors  \eqn{\mathbf{f}_t = (f_{1t}, \ldots, f_{Nt})'},
-#' then the forecast combination for one data point can be represented as:
-#' \deqn{y_t = b + \sum_{i=1}^{N} w_i f_{it}}
-#'
-#' An appealing feature of the method is its bias correction through the intercept -- even if one or more of the individual
-#' predictors are biased, the resulting combined forecast is unbiased. A disadvantage of the method is that it places no
-#' restriction on the combination weights (i.e., they do not add up to 1 and can be negative), which can make interpretation
-#' hard. Another issue, documented in Nowotarski et al. (2014), is the method's unstable behavior
-#' when predictors are highly correlated (which is the norm in forecast combination): Minor fluctuations in the sample
-#' can cause major shifts of the coefficient vector (\sQuote{bouncing betas}) -- often causing poor out-of-sample performance.
-#' This issue is addressed by the \code{\link{comb_LAD}} method that is more robust to outliers.
 #'
 #' The results are stored in an object of class 'foreccomb_res', for which separate plot and summary functions are provided.
 #'
@@ -46,7 +30,7 @@
 #' test_p<-preds[81:100,]
 #'
 #' data<-foreccomb(train_o, train_p, test_o, test_p)
-#' comb_OLS(data)
+#' comb_Ridge(data)
 #'
 #' @seealso
 #' \code{\link[ForecastCombinations]{Forecast_comb}},
@@ -66,46 +50,46 @@
 #' @import forecast
 #'
 #' @export
-comb_OLS <- function(x, custom_error = NULL) {
+comb_Ridge <- function(x, custom_error = NULL) {
     if (class(x) != "foreccomb")
         stop("Data must be class 'foreccomb'. See ?foreccomb, to bring data in correct format.", call. = FALSE)
     observed_vector <- x$Actual_Train
-    prediction_matrix <- cbind(1, x$Forecasts_Train)
+    prediction_matrix <- x$Forecasts_Train
     modelnames <- x$modelnames
 
-    lin_model <- stats::.lm.fit(x = prediction_matrix, y = observed_vector)
-    weights <- unname(lin_model$coefficients[-1])
-    intercept <- unname(lin_model$coefficients[1])
-    fitted <- drop(prediction_matrix%*%lin_model$coefficients)
+    lin_model <- ridge(x = prediction_matrix, y = observed_vector)
+    weights <- unname(lin_model$coef[,which.min(lin_model$GCV)] )
+    intercept <- lin_model$ym 
+    fitted <- predict(lin_model, prediction_matrix)
 
     accuracy_insample <- forecast::accuracy(fitted, observed_vector, custom_error=custom_error)
 
     if (is.null(x$Forecasts_Test) && is.null(x$Actual_Test)) {
-        result <- foreccomb_res(method = "Ordinary Least Squares Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
+        result <- foreccomb_res(method = "Ridge Regression Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
                                 input_data = list(Actual_Train = x$Actual_Train, Forecasts_Train = x$Forecasts_Train), 
-                                predict = predict.comb_OLS)
+                                predict = predict.comb_Ridge)
     }
 
     if (is.null(x$Forecasts_Test) == FALSE) {
         newpred_matrix <- x$Forecasts_Test
-        pred <- as.vector(lin_model$coef %*% t(cbind(1, newpred_matrix)))
+        pred <- predict(lin_model, newpred_matrix)
         if (is.null(x$Actual_Test) == TRUE) {
-            result <- foreccomb_res(method = "Ordinary Least Squares Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
+            result <- foreccomb_res(method = "Ridge Regression Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
                                     pred = pred, input_data = list(Actual_Train = x$Actual_Train, Forecasts_Train = x$Forecasts_Train, Forecasts_Test = x$Forecasts_Test), 
-                                    predict = predict.comb_OLS)
+                                    predict = predict.comb_Ridge)
         } else {
             newobs_vector <- x$Actual_Test
             accuracy_outsample <- forecast::accuracy(pred, newobs_vector, custom_error=custom_error)
-            result <- foreccomb_res(method = "Ordinary Least Squares Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
+            result <- foreccomb_res(method = "Ridge Regression Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
                                     pred = pred, accuracy_outsample = accuracy_outsample, input_data = list(Actual_Train = x$Actual_Train, Forecasts_Train = x$Forecasts_Train, Actual_Test = x$Actual_Test,
                                                                                                             Forecasts_Test = x$Forecasts_Test), 
-                                    predict = predict.comb_OLS)
+                                    predict = predict.comb_Ridge)
+            result$lin_model <- lin_model
         }
     }
     return(result)
 }
 
-predict.comb_OLS <- function(object, newpreds) {
-  coef <- c(object$Intercept, object$Weights)  
-  return(drop(cbind(1, newpreds) %*% coef))
+predict.comb_Ridge <- function(object, newpreds) {
+  return(predict(object$lin_model, newpreds))
 }

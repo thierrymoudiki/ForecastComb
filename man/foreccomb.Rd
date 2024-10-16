@@ -4,8 +4,15 @@
 \alias{foreccomb}
 \title{Format Raw Data for Forecast Combination}
 \usage{
-foreccomb(observed_vector, prediction_matrix, newobs = NULL,
-  newpreds = NULL, byrow = FALSE, na.impute = TRUE, criterion = "RMSE")
+foreccomb(
+  observed_vector,
+  prediction_matrix,
+  newobs = NULL,
+  newpreds = NULL,
+  byrow = FALSE,
+  na.impute = TRUE,
+  criterion = "RMSE"
+)
 }
 \arguments{
 \item{observed_vector}{A vector or univariate time series; contains \sQuote{actual values} for training set.}
@@ -83,9 +90,6 @@ train_p[,2] <- 0.8*train_p[,1] + 0.4*train_p[,8]
 foreccomb(train_o, train_p, criterion="RMSE")
 
 }
-\author{
-Christoph E. Weiss, Gernot R. Roetzer
-}
 \references{
 Junger, W. L., Ponce de Leon, A., and Santos, N. (2003). Missing Data Imputation in Multivariate Time Series
 via EM Algorithm. \emph{Cadernos do IME}, \bold{15}, 8--21.
@@ -97,5 +101,7 @@ Dempster, A., Laird, N., and Rubin D. (1977). Maximum Likelihood from Incomplete
 \code{\link[mtsdi]{mnimput}},
 \code{\link[Matrix]{rankMatrix}}
 }
+\author{
+Christoph E. Weiss, Gernot R. Roetzer
+}
 \keyword{manip}
-
