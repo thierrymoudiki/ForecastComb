@@ -19,6 +19,12 @@ library(ForecastComb)
 ```
 
 ```{r}
+custom_error <- function(actual, forecast_) {
+  return(mean(abs(forecast_ - actual)))
+}
+```
+
+```{r}
 h <- 29L
 
 train_AirPassengers <- ts(AirPassengers[1:115], start = start(AirPassengers), frequency = frequency(AirPassengers))
@@ -65,7 +71,7 @@ data <- ForecastComb::foreccomb(train_obs, train_pred, test_obs, test_pred)
 
 ```{r fig.width=7.5}
 start <- proc.time()[3]
-obj <- ForecastComb::comb_OLS(data)
+obj <- ForecastComb::comb_OLS(data, custom_error=custom_error)
 print(proc.time()[3] - start)
 
 print(obj$Accuracy_Test)
@@ -84,7 +90,7 @@ plot(obj)
 
 ```{r eval=TRUE}
 start <- proc.time()[3]
-obj <- ForecastComb::comb_Ridge(data)
+obj <- ForecastComb::comb_Ridge(data, custom_error=custom_error)
 print(proc.time()[3] - start)
 ```
 
@@ -105,7 +111,7 @@ plot(obj)
 
 ```{r eval=TRUE}
 start <- proc.time()[3]
-obj <- ForecastComb::comb_GLMNET(data)
+obj <- ForecastComb::comb_GLMNET(data, custom_error=custom_error)
 print(proc.time()[3] - start)
 ```
 
