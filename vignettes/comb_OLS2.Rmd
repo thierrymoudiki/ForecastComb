@@ -14,28 +14,55 @@ knitr::opts_chunk$set(echo = TRUE)
 # 1 - Comb OLS  
 
 ```{r}
+library(forecast)
 library(ForecastComb)
 ```
 
 ```{r}
-data(electricity)
+h <- 29L
 
-print(head(electricity))
+train_AirPassengers <- ts(AirPassengers[1:115], start = start(AirPassengers), frequency = frequency(AirPassengers))
 
-(forecasting_methods <- colnames(electricity)[1:5])
+(arima_forecast <- forecast::forecast(forecast::auto.arima(train_AirPassengers), h=h))
+(ets_forecast <- forecast::forecast(forecast::ets(train_AirPassengers), h=h))
+(theta_forecast <- forecast::thetaf(train_AirPassengers, h=h))
+(ridge_forecast <- ahead::dynrmf(train_AirPassengers, h=h))
+(glmnet_forecast <- ahead::dynrmf(train_AirPassengers, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict))
+```
 
-train_obs <- electricity[1:84, "Actual"]
-train_pred <- electricity[1:84, forecasting_methods]
-test_obs <- electricity[85:123, "Actual"]
-test_pred <- electricity[85:123, forecasting_methods]
+```{r}
+airpass <- cbind(arima_forecast$mean, 
+ets_forecast$mean, theta_forecast$mean, 
+ridge_forecast$mean, glmnet_forecast$mean,
+ts(AirPassengers[116:144], 
+start=start(arima_forecast$mean),
+frequency=frequency(AirPassengers)))
+```
+
+```{r}
+print(airpass)
+```
+
+```{r}
+colnames(airpass) <- c("ARIMA", "ETS", "Theta", "Ridge", "GLMNET", "Actual")
+```
+
+```{r}
+(forecasting_methods <- colnames(airpass)[1:5])
+
+train_obs <- airpass[1:21, 6]
+train_pred <- airpass[1:21, 1:5]
+test_obs <- airpass[22:29, 6]
+test_pred <- airpass[22:29, 1:5]
 
 data <- ForecastComb::foreccomb(train_obs, train_pred, test_obs, test_pred)
+```
 
+```{r fig.width=7.5}
 start <- proc.time()[3]
 obj <- ForecastComb::comb_OLS(data)
 print(proc.time()[3] - start)
-
-print(summary(obj))
 
 print(obj$Accuracy_Test)
 
@@ -79,8 +106,6 @@ print(proc.time()[3] - start)
 ```
 
 ```{r eval=TRUE}
-#summary(obj)
-
 print(obj$Accuracy_Test)
 
 print(mean(predict(obj, test_pred) - test_obs))

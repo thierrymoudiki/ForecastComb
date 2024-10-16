@@ -70,7 +70,7 @@ docs: clean setwd ## generate docs
 getwd: ## get current directory
 	Rscript -e "getwd()"
 
-install: clean setwd ## install current package
+install: clean setwd docs ## install current package
 	Rscript -e "try(devtools::install('.'), silent = FALSE)"
 
 installcranpkg: setwd ## install a package
@@ -98,7 +98,7 @@ initialize: setwd ## initialize: install packages devtools, usethis, pkgdown and
 help: ## print menu with all options
 	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-load: clean setwd ## load all (when developing the package)
+load: clean setwd docs ## load all (when developing the package)
 	Rscript -e "devtools::load_all('.')"
 
 removepkg: ## remove package

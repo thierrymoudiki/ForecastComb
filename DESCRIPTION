@@ -3,7 +3,7 @@ Type: Package
 Title: Forecast Combination Methods
 Version: 1.3.1
 Depends:
-    R (>= 3.0.2)
+    R (>= 3.0.2), remotes , glmnet, ahead
 Imports:
     forecast (>= 7.3),
     ggplot2 (>= 2.1.0),
@@ -13,7 +13,7 @@ Imports:
     quadprog (>= 1.5-5),
     quantreg (>= 5.29)
 Suggests: 
-    testthat (>= 1.0.2)
+    testthat (>= 1.0.2), knitr
 Author: Christoph E. Weiss, Gernot R. Roetzer, Eran Raviv 
 Maintainer: Christoph E. Weiss <info@ceweiss.com>
 Description: Provides geometric- and regression-based forecast
@@ -27,3 +27,4 @@ BugReports: https://github.com/ceweiss/ForecastComb/issues
 License: GPL (>= 2)
 LazyData: true
 RoxygenNote: 7.2.3
+VignetteBuilder: knitr
