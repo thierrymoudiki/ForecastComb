@@ -23,12 +23,20 @@ h <- 29L
 
 train_AirPassengers <- ts(AirPassengers[1:115], start = start(AirPassengers), frequency = frequency(AirPassengers))
 
-(arima_forecast <- forecast::forecast(forecast::auto.arima(train_AirPassengers), h=h))
-(ets_forecast <- forecast::forecast(forecast::ets(train_AirPassengers), h=h))
-(theta_forecast <- forecast::thetaf(train_AirPassengers, h=h))
-(ridge_forecast <- ahead::dynrmf(train_AirPassengers, h=h))
-(glmnet_forecast <- ahead::dynrmf(train_AirPassengers, h=h, 
-fit_func = glmnet::cv.glmnet, predict_func = predict))
+arima_forecast <- forecast::forecast(forecast::auto.arima(train_AirPassengers), h=h)
+ets_forecast <- forecast::forecast(forecast::ets(train_AirPassengers), h=h)
+theta_forecast <- forecast::thetaf(train_AirPassengers, h=h)
+ridge_forecast <- ahead::dynrmf(train_AirPassengers, h=h)
+glmnet_forecast <- ahead::dynrmf(train_AirPassengers, h=h, 
+fit_func = glmnet::cv.glmnet, predict_func = predict)
+```
+
+```{r}
+print(forecast::accuracy(arima_forecast, AirPassengers[116:144]))
+print(forecast::accuracy(ets_forecast, AirPassengers[116:144]))
+print(forecast::accuracy(theta_forecast, AirPassengers[116:144]))
+print(forecast::accuracy(ridge_forecast, AirPassengers[116:144]))
+print(forecast::accuracy(glmnet_forecast, AirPassengers[116:144]))
 ```
 
 ```{r}
@@ -38,10 +46,6 @@ ridge_forecast$mean, glmnet_forecast$mean,
 ts(AirPassengers[116:144], 
 start=start(arima_forecast$mean),
 frequency=frequency(AirPassengers)))
-```
-
-```{r}
-print(airpass)
 ```
 
 ```{r}
