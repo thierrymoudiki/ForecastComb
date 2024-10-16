@@ -61,7 +61,11 @@ comb_GLMNET <- function(x, custom_error = NULL) {
     weights <- coef(lin_model, s = "lambda.min")
     intercept <- weights[1]
     fitted <- drop(predict(lin_model, prediction_matrix, s = "lambda.min"))
-    accuracy_insample <- forecast::accuracy(as.numeric(fitted), observed_vector, custom_error=custom_error)
+    accuracy_insample <- forecast::accuracy(observed_vector, as.numeric(fitted))
+    if (!is.null(custom_error)) {
+        accuracy_insample <- cbind(accuracy_insample, custom_error(as.numeric(observed_vector), as.numeric(fitted)))
+        names(accuracy_insample)[length(accuracy_insample)] <- "Custom Error"
+    }
 
     if (is.null(x$Forecasts_Test) && is.null(x$Actual_Test)) {
         result <- foreccomb_res(method = "GLMNET Regression Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
@@ -78,7 +82,11 @@ comb_GLMNET <- function(x, custom_error = NULL) {
                                     predict = predict.comb_GLMNET)
         } else {
             newobs_vector <- x$Actual_Test
-            accuracy_outsample <- forecast::accuracy(as.numeric(pred), newobs_vector, custom_error=custom_error)
+            accuracy_outsample <- forecast::accuracy(newobs_vector, as.numeric(pred))
+            if (!is.null(custom_error)) {
+                accuracy_outsample <- cbind(accuracy_outsample, custom_error(as.numeric(newobs_vector), as.numeric(pred)))
+                names(accuracy_outsample)[length(accuracy_outsample)] <- "Custom Error"
+            }
             result <- foreccomb_res(method = "GLMNET Regression Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
                                     pred = pred, accuracy_outsample = accuracy_outsample, input_data = list(Actual_Train = x$Actual_Train, Forecasts_Train = x$Forecasts_Train, Actual_Test = x$Actual_Test,
                                                                                                             Forecasts_Test = x$Forecasts_Test), 

@@ -1,8 +1,8 @@
 ---
-title: "comb OLS"
+title: "comb OLS AirPassengers"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{comb OLS}
+  %\VignetteIndexEntry{comb OLS AirPassengers}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

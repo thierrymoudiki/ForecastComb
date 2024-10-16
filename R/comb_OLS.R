@@ -78,7 +78,11 @@ comb_OLS <- function(x, custom_error = NULL) {
     intercept <- unname(lin_model$coefficients[1])
     fitted <- drop(prediction_matrix%*%lin_model$coefficients)
 
-    accuracy_insample <- forecast::accuracy(fitted, observed_vector, custom_error=custom_error)
+    accuracy_insample <- forecast::accuracy(fitted, observed_vector)
+    if (!is.null(custom_error)) {
+        accuracy_insample <- cbind(accuracy_insample, custom_error(as.numeric(observed_vector), as.numeric(fitted)))
+        names(accuracy_insample)[length(accuracy_insample)] <- "Custom Error"
+    }
 
     if (is.null(x$Forecasts_Test) && is.null(x$Actual_Test)) {
         result <- foreccomb_res(method = "Ordinary Least Squares Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
@@ -95,7 +99,11 @@ comb_OLS <- function(x, custom_error = NULL) {
                                     predict = predict.comb_OLS)
         } else {
             newobs_vector <- x$Actual_Test
-            accuracy_outsample <- forecast::accuracy(pred, newobs_vector, custom_error=custom_error)
+            accuracy_outsample <- forecast::accuracy(pred, newobs_vector)
+            if (!is.null(custom_error)) {
+                accuracy_outsample <- cbind(accuracy_outsample, custom_error(as.numeric(newobs_vector), as.numeric(pred)))
+                names(accuracy_outsample)[length(accuracy_outsample)] <- "Custom Error"
+            }
             result <- foreccomb_res(method = "Ordinary Least Squares Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
                                     pred = pred, accuracy_outsample = accuracy_outsample, input_data = list(Actual_Train = x$Actual_Train, Forecasts_Train = x$Forecasts_Train, Actual_Test = x$Actual_Test,
                                                                                                             Forecasts_Test = x$Forecasts_Test), 

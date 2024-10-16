@@ -12,7 +12,7 @@
 
 
 
-<title>comb OLS</title>
+<title>comb OLS AirPassengers</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -336,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">comb OLS</h1>
+<h1 class="title toc-ignore">comb OLS AirPassengers</h1>
 
 
 
@@ -431,8 +431,11 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <pre><code>## elapsed 
 ##   0.007</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">print</span>(obj<span class="sc">$</span>Accuracy_Test)</span></code></pre></div>
-<pre><code>##                ME     RMSE      MAE      MPE     MAPE CustomError
-## Test set 18.10097 23.41915 19.62024 3.496798 3.795867    19.62024</code></pre>
+<pre><code>##                ME     RMSE      MAE      MPE     MAPE         
+## Test set 18.10097 23.41915 19.62024 3.496798 3.795867 19.62024
+## attr(,&quot;names&quot;)
+## [1] NA             NA             NA             NA             NA            
+## [6] &quot;Custom Error&quot;</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">print</span>(obj<span class="sc">$</span>Weights)</span></code></pre></div>
 <pre><code>## [1]  0.5139769  4.6082642 -4.1413190 -0.1354900  0.3797416</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># check</span></span>
@@ -447,7 +450,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>obj <span class="ot">&lt;-</span> ForecastComb<span class="sc">::</span><span class="fu">comb_Ridge</span>(data, <span class="at">custom_error=</span>custom_error)</span>
 <span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">proc.time</span>()[<span class="dv">3</span>] <span class="sc">-</span> start)</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.006</code></pre>
+##   0.007</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(obj))</span></code></pre></div>
 <pre><code>## Warning in rbind(object$Accuracy_Train[1:5], object$Accuracy_Test): number of
 ## columns of result is not a multiple of vector length (arg 1)</code></pre>
@@ -479,8 +482,11 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## For forecasts (test set):  obj$Forecasts_Test 
 ## See  str(obj)  for full list.</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">print</span>(obj<span class="sc">$</span>Accuracy_Test)</span></code></pre></div>
-<pre><code>##                ME     RMSE      MAE      MPE     MAPE CustomError
-## Test set 11.92057 20.50185 16.29153 2.237091 3.109866    16.29153</code></pre>
+<pre><code>##                ME     RMSE      MAE      MPE     MAPE         
+## Test set 11.92057 20.50185 16.29153 2.237091 3.109866 16.29153
+## attr(,&quot;names&quot;)
+## [1] NA             NA             NA             NA             NA            
+## [6] &quot;Custom Error&quot;</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="co"># check </span></span>
 <span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">mean</span>(<span class="fu">predict</span>(obj, test_pred) <span class="sc">-</span> test_obs))</span></code></pre></div>
 <pre><code>## [1] -11.92057</code></pre>
@@ -495,10 +501,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## fold</code></pre>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">proc.time</span>()[<span class="dv">3</span>] <span class="sc">-</span> start)</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.058</code></pre>
+##   0.064</code></pre>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">print</span>(obj<span class="sc">$</span>Accuracy_Test)</span></code></pre></div>
-<pre><code>##                ME     RMSE      MAE      MPE     MAPE CustomError
-## Test set 21.08074 28.89815 24.49499 3.983804 4.655901    24.49499</code></pre>
+<pre><code>##                 ME     RMSE      MAE       MPE     MAPE         
+## Test set -21.08074 28.89815 24.49499 -4.291015 4.945516 24.49499
+## attr(,&quot;names&quot;)
+## [1] NA             NA             NA             NA             NA            
+## [6] &quot;Custom Error&quot;</code></pre>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">mean</span>(<span class="fu">predict</span>(obj, test_pred) <span class="sc">-</span> test_obs))</span></code></pre></div>
 <pre><code>## [1] -21.08074</code></pre>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="fu">plot</span>(obj)</span></code></pre></div>

@@ -1,8 +1,8 @@
 ---
-title: "comb OLS"
+title: "comb OLS Electricity"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{comb OLS}
+  %\VignetteIndexEntry{comb OLS Electricity}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
