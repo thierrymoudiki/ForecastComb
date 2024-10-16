@@ -65,7 +65,7 @@ comb_Ridge <- function(x, custom_error = NULL) {
     accuracy_insample <- forecast::accuracy(fitted, observed_vector)
     if (!is.null(custom_error)) {
         accuracy_insample <- cbind(accuracy_insample, custom_error(as.numeric(observed_vector), as.numeric(fitted)))
-        names(accuracy_insample)[length(accuracy_insample)] <- "Custom Error"
+        colnames(accuracy_insample)[length(accuracy_insample)] <- "Custom Error"
     }
 
     if (is.null(x$Forecasts_Test) && is.null(x$Actual_Test)) {
@@ -86,7 +86,7 @@ comb_Ridge <- function(x, custom_error = NULL) {
             accuracy_outsample <- forecast::accuracy(pred, newobs_vector)
             if (!is.null(custom_error)) {
                 accuracy_outsample <- cbind(accuracy_outsample, custom_error(as.numeric(newobs_vector), as.numeric(pred)))
-                names(accuracy_outsample)[length(accuracy_outsample)] <- "Custom Error"
+                colnames(accuracy_outsample)[length(accuracy_outsample)] <- "Custom Error"
             }
             result <- foreccomb_res(method = "Ridge Regression Regression", modelnames = modelnames, weights = weights, intercept = intercept, fitted = fitted, accuracy_insample = accuracy_insample,
                                     pred = pred, accuracy_outsample = accuracy_outsample, input_data = list(Actual_Train = x$Actual_Train, Forecasts_Train = x$Forecasts_Train, Actual_Test = x$Actual_Test,
